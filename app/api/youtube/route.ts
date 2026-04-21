@@ -79,7 +79,7 @@ export async function GET(req: NextRequest) {
       );
 
       const videos = items
-        .filter((item: any) => (durations.get(item.id.videoId) ?? 0) > 60)
+        .filter((item: any) => (durations.get(item.id.videoId) ?? 0) > 240)
         .map((item: any) => mapVideo(item, channelTitle));
 
       return NextResponse.json({ videos, nextPageToken: data.nextPageToken ?? null });
