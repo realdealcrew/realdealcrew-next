@@ -18,6 +18,12 @@ function mapVideo(item: any, channelTitle: string) {
   };
 }
 
+function parseDuration(iso: string): number {
+  const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+  if (!m) return 0;
+  return (parseInt(m[1] ?? '0') * 3600) + (parseInt(m[2] ?? '0') * 60) + parseInt(m[3] ?? '0');
+}
+
 export async function GET(req: NextRequest) {
   if (!API_KEY) {
     return NextResponse.json({ error: 'YouTube API key not configured' }, { status: 500 });
@@ -49,7 +55,6 @@ export async function GET(req: NextRequest) {
       url.searchParams.set('channelId', channelId);
       url.searchParams.set('type', 'video');
       url.searchParams.set('order', 'date');
-      url.searchParams.set('videoDuration', 'medium');
       url.searchParams.set('maxResults', maxResults);
       url.searchParams.set('key', API_KEY);
       if (pageToken) url.searchParams.set('pageToken', pageToken);
@@ -61,7 +66,22 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: data.error.message }, { status: data.error.code ?? 500 });
       }
 
-      const videos = (data.items ?? []).map((item: any) => mapVideo(item, channelTitle));
+      const items = data.items ?? [];
+
+      // Fetch durations to filter out Shorts (≤60s)
+      const ids = items.map((i: any) => i.id.videoId).join(',');
+      const detailsRes = await fetch(
+        `${BASE}/videos?part=contentDetails&id=${ids}&key=${API_KEY}`
+      );
+      const detailsData = await detailsRes.json();
+      const durations = new Map<string, number>(
+        (detailsData.items ?? []).map((i: any) => [i.id, parseDuration(i.contentDetails.duration)])
+      );
+
+      const videos = items
+        .filter((item: any) => (durations.get(item.id.videoId) ?? 0) > 60)
+        .map((item: any) => mapVideo(item, channelTitle));
+
       return NextResponse.json({ videos, nextPageToken: data.nextPageToken ?? null });
     }
 
