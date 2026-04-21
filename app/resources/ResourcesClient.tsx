@@ -8,7 +8,7 @@ import { YouTubeVideo, PodcastEpisode } from "@/lib/types";
 type Tab = "tech" | "interviews" | "podcast";
 
 const CACHE_EXPIRY = 3600000;
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v5';
 const CHANNELS: Record<"tech" | "interviews", { handle: string; label: string }> = {
   tech:       { handle: "@RealDealCast",  label: "Tech & Tools" },
   interviews: { handle: "@realdealchat", label: "Investor Interviews" },
@@ -43,7 +43,7 @@ async function fetchChannelVideos(handle: string, channelTitle: string, pageToke
   const params = new URLSearchParams({
     action: "getVideos",
     channelId: id!,
-    maxResults: "12",
+    maxResults: "25",
     channelTitle,
   });
   if (pageToken) params.set("pageToken", pageToken);

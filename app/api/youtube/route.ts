@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
 
     if (action === 'getVideos') {
       const channelId = searchParams.get('channelId') ?? '';
-      const maxResults = searchParams.get('maxResults') ?? '12';
+      const maxResults = searchParams.get('maxResults') ?? '25';
       const pageToken = searchParams.get('pageToken') ?? '';
       const channelTitle = searchParams.get('channelTitle') ?? '';
 
