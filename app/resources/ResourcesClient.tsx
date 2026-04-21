@@ -8,6 +8,7 @@ import { YouTubeVideo, PodcastEpisode } from "@/lib/types";
 type Tab = "tech" | "interviews" | "podcast";
 
 const CACHE_EXPIRY = 3600000;
+const CACHE_VERSION = 'v2';
 const CHANNELS: Record<"tech" | "interviews", { handle: string; label: string }> = {
   tech:       { handle: "@RealDealCast",  label: "Tech & Tools" },
   interviews: { handle: "@realdealchat", label: "Investor Interviews" },
@@ -67,7 +68,7 @@ export default function ResourcesClient() {
   const loadChannel = useCallback(async (key: "tech" | "interviews") => {
     const { handle, label } = CHANNELS[key];
     const setter = key === "tech" ? setTech : setInterviews;
-    const cacheKey = `yt_${handle}`;
+    const cacheKey = `yt_${CACHE_VERSION}_${handle}`;
 
     try {
       const cached = localStorage.getItem(cacheKey);
@@ -117,7 +118,7 @@ export default function ResourcesClient() {
         handle, label, state.nextPageToken, state.channelId
       );
       const all = [...state.videos, ...videos];
-      const cacheKey = `yt_${handle}`;
+      const cacheKey = `yt_${CACHE_VERSION}_${handle}`;
       localStorage.setItem(
         cacheKey,
         JSON.stringify({ videos: all, nextPageToken, channelId: state.channelId, timestamp: Date.now() })

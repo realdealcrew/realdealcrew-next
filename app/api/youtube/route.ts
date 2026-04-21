@@ -49,6 +49,7 @@ export async function GET(req: NextRequest) {
       url.searchParams.set('channelId', channelId);
       url.searchParams.set('type', 'video');
       url.searchParams.set('order', 'date');
+      url.searchParams.set('videoDuration', 'medium');
       url.searchParams.set('maxResults', maxResults);
       url.searchParams.set('key', API_KEY);
       if (pageToken) url.searchParams.set('pageToken', pageToken);
