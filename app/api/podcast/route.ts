@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { unstable_cache } from 'next/cache';
 import { PodcastEpisode } from '@/lib/types';
 
 const FEEDS = [
@@ -69,12 +70,11 @@ function parseItems(xml: string, feedName: string): PodcastEpisode[] {
   return items;
 }
 
-export async function GET() {
-  try {
+const getPodcastEpisodes = unstable_cache(
+  async () => {
     const results = await Promise.allSettled(
       FEEDS.map(async ({ url, name }) => {
         const res = await fetch(url, {
-          next: { revalidate: 3600 },
           headers: { 'User-Agent': 'RealDealCrew/1.0' },
         });
         if (!res.ok) throw new Error(`Feed ${name} returned ${res.status}`);
@@ -83,7 +83,7 @@ export async function GET() {
       })
     );
 
-    const all: PodcastEpisode[] = results
+    return results
       .filter(
         (r): r is PromiseFulfilledResult<PodcastEpisode[]> => r.status === 'fulfilled'
       )
@@ -92,10 +92,18 @@ export async function GET() {
         (a, b) =>
           new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
       );
+  },
+  ['podcast-episodes'],
+  { revalidate: 3600 }
+);
 
-    return NextResponse.json({ episodes: all });
+export async function GET() {
+  try {
+    const episodes = await getPodcastEpisodes();
+    return NextResponse.json({ episodes });
   } catch (err) {
     console.error('Podcast feed error:', err);
     return NextResponse.json({ error: 'Failed to fetch podcast feeds' }, { status: 500 });
   }
 }
+
