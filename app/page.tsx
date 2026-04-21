@@ -65,37 +65,154 @@ export default function Home() {
       <Section
         style={{ paddingTop: "7rem", paddingBottom: "7rem" }}
       >
-        <div className="max-w-3xl">
-          <span className="label-pill mb-6 inline-flex">
-            Fractional Deal Operations
-          </span>
-          <h1 className="heading-xl mb-6" style={{ color: "var(--color-text-primary)" }}>
-            We build and run your deal intake system.{" "}
-            <span style={{ color: "var(--color-text-secondary)" }}>
-              You focus on closing.
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          {/* Left */}
+          <div>
+            <span className="label-pill mb-6 inline-flex">
+              Fractional Deal Operations
             </span>
-          </h1>
-          <p
-            className="text-lg mb-8 max-w-xl leading-relaxed"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            Speed-to-lead handled automatically. Follow-up runs without manual
-            effort. Every deal tracked in one system.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button href="/book" variant="primary" size="lg">
-              Book a Fit Call
-            </Button>
-            <Button href="/how-it-works" variant="secondary" size="lg">
-              How It Works
-            </Button>
+            <h1 className="heading-xl mb-6" style={{ color: "var(--color-text-primary)" }}>
+              We build and run your deal intake system.{" "}
+              <span style={{ color: "var(--color-text-secondary)" }}>
+                You focus on closing.
+              </span>
+            </h1>
+            <p
+              className="text-lg mb-8 max-w-xl leading-relaxed"
+              style={{ color: "var(--color-text-secondary)" }}
+            >
+              Speed-to-lead handled automatically. Follow-up runs without manual
+              effort. Every deal tracked in one system.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button href="/book" variant="primary" size="lg">
+                Book a Fit Call
+              </Button>
+              <Button href="/how-it-works" variant="secondary" size="lg">
+                How It Works
+              </Button>
+            </div>
+            <p
+              className="mt-6 text-xs"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              We don't close deals. We run the intake operation.
+            </p>
           </div>
-          <p
-            className="mt-6 text-xs"
-            style={{ color: "var(--color-text-muted)" }}
+
+          {/* Right — live call simulation card */}
+          <div
+            style={{
+              background: "#111111",
+              border: "1px solid #222222",
+              borderRadius: "4px",
+              padding: "1.5rem",
+              fontFamily: "'DM Mono', 'Courier New', monospace",
+            }}
           >
-            We don't close deals. We run the intake operation.
-          </p>
+            {/* Card header */}
+            <div className="flex items-center gap-2 mb-5">
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "8px",
+                  height: "8px",
+                  borderRadius: "50%",
+                  background: "#c8f135",
+                  animation: "pulse 2s ease-in-out infinite",
+                }}
+              />
+              <span
+                style={{
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.1em",
+                  color: "#c8f135",
+                  textTransform: "uppercase",
+                }}
+              >
+                Live System Activity
+              </span>
+            </div>
+
+            {/* Activity rows */}
+            <div className="flex flex-col gap-3">
+              {[
+                { time: "0:00", event: "Seller calls your number", status: "Answered instantly" },
+                { time: "0:45", event: "AI qualifies seller motivation and property details", status: "Lead scored" },
+                { time: "2:30", event: "Appointment scheduled to your calendar", status: "Confirmed" },
+                { time: "2:35", event: "Follow-up sequence activated", status: "Running" },
+                { time: "3:00", event: "Deal card created in pipeline", status: "Organized" },
+              ].map((row, i) => (
+                <div
+                  key={row.time}
+                  className="flex items-start gap-3"
+                  style={{
+                    opacity: 0,
+                    animation: "fadeInRow 0.4s ease forwards",
+                    animationDelay: `${i * 100}ms`,
+                    paddingBottom: "0.75rem",
+                    borderBottom: i < 4 ? "1px solid #1a1a1a" : "none",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "0.65rem",
+                      color: "var(--color-text-muted)",
+                      minWidth: "2.5rem",
+                      paddingTop: "1px",
+                      fontVariantNumeric: "tabular-nums",
+                    }}
+                  >
+                    {row.time}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "0.75rem",
+                      color: "var(--color-text-secondary)",
+                      flex: 1,
+                      lineHeight: "1.4",
+                    }}
+                  >
+                    {row.event}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "0.6rem",
+                      letterSpacing: "0.05em",
+                      color: "#c8f135",
+                      background: "rgba(200, 241, 53, 0.08)",
+                      border: "1px solid rgba(200, 241, 53, 0.2)",
+                      borderRadius: "2px",
+                      padding: "2px 6px",
+                      whiteSpace: "nowrap",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {row.status}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Card footer */}
+            <div
+              style={{
+                marginTop: "1rem",
+                paddingTop: "1rem",
+                borderTop: "1px solid #222222",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "0.65rem",
+                  color: "var(--color-text-muted)",
+                  letterSpacing: "0.05em",
+                }}
+              >
+                Response time: &lt;90 seconds
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Flow indicator */}
