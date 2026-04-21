@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Section from "@/components/ui/Section";
 import Button from "@/components/ui/Button";
 
@@ -118,12 +119,13 @@ export default function AboutPage() {
             style={{ border: "1px solid var(--color-border)" }}
           >
             <div className="flex items-start gap-5 mb-5">
-              <div
-                className="w-12 h-12 rounded-sm flex items-center justify-center text-lg font-semibold shrink-0"
-                style={{ background: "var(--color-border)", color: "var(--color-text-primary)" }}
-              >
-                JH
-              </div>
+              <Image
+                src="/Jack%20Headshot.jpg"
+                alt="Jack Hoss"
+                width={48}
+                height={48}
+                className="w-12 h-12 rounded-sm object-cover shrink-0"
+              />
               <div>
                 <p
                   className="text-base font-medium"

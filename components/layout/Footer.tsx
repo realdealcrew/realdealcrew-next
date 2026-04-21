@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/how-it-works", label: "How It Works" },
@@ -19,12 +20,14 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-12">
           {/* Brand */}
           <div className="max-w-xs">
-            <Link
-              href="/"
-              className="font-semibold text-sm tracking-tight text-text-primary"
-              style={{ letterSpacing: "-0.01em" }}
-            >
-              RealDealCrew
+            <Link href="/" className="inline-flex">
+              <Image
+                src="/RealDealCrew%20Logo%20White.png"
+                alt="RealDealCrew"
+                width={160}
+                height={40}
+                className="h-8 w-auto"
+              />
             </Link>
             <p
               className="mt-3 text-sm leading-relaxed"

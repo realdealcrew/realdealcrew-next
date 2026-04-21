@@ -17,18 +17,24 @@ export const metadata: Metadata = {
     "lead follow-up automation",
     "real estate CRM operations",
   ],
+  icons: {
+    icon: "/favicon192x192.png",
+    apple: "/favicon192x192.png",
+  },
   openGraph: {
     title: "RealDealCrew — Fractional Deal Operations",
     description:
       "We run the system. You close the deals. Fractional Deal Operations for real estate investors.",
     url: "https://realdealcrew.com",
     siteName: "RealDealCrew",
+    images: [{ url: "/RealDealCrew%20Logo%20White.png" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "RealDealCrew — Fractional Deal Operations",
     description: "We run the system. You close the deals.",
+    images: ["/RealDealCrew%20Logo%20White.png"],
   },
   robots: {
     index: true,

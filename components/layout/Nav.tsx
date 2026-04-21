@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -24,12 +25,14 @@ export default function Nav() {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link
-          href="/"
-          className="font-semibold text-sm tracking-tight text-text-primary hover:text-accent transition-colors"
-          style={{ letterSpacing: "-0.01em" }}
-        >
-          RealDealCrew
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/RealDealCrew%20Logo%20White.png"
+            alt="RealDealCrew"
+            width={160}
+            height={40}
+            className="h-8 w-auto"
+          />
         </Link>
 
         {/* Desktop nav */}
