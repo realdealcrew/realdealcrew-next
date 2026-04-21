@@ -104,62 +104,74 @@ export default function Home() {
           <div
             style={{
               background: "#111111",
-              border: "1px solid #222222",
-              borderRadius: "4px",
-              padding: "1.5rem",
+              border: "1px solid #333333",
+              borderTop: "3px solid #c8f135",
+              borderRadius: "8px",
+              padding: "24px",
+              boxShadow: "0 0 40px rgba(200, 241, 53, 0.06)",
               fontFamily: "'DM Mono', 'Courier New', monospace",
             }}
           >
             {/* Card header */}
-            <div className="flex items-center gap-2 mb-5">
-              <span
-                style={{
-                  display: "inline-block",
-                  width: "8px",
-                  height: "8px",
-                  borderRadius: "50%",
-                  background: "#c8f135",
-                  animation: "pulse 2s ease-in-out infinite",
-                }}
-              />
-              <span
-                style={{
-                  fontSize: "0.65rem",
-                  letterSpacing: "0.1em",
-                  color: "#c8f135",
-                  textTransform: "uppercase",
-                }}
-              >
-                Live System Activity
-              </span>
+            <div
+              className="flex items-center justify-between"
+              style={{ paddingBottom: "16px", borderBottom: "1px solid #222", marginBottom: "16px" }}
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    background: "#c8f135",
+                    animation: "pulse 1.5s ease-in-out infinite",
+                    flexShrink: 0,
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: "11px",
+                    letterSpacing: "0.1em",
+                    color: "#c8f135",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Live System Activity
+                </span>
+              </div>
             </div>
 
             {/* Activity rows */}
-            <div className="flex flex-col gap-3">
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
               {[
-                { time: "0:00", event: "Seller calls your number", status: "Answered instantly" },
-                { time: "0:45", event: "AI qualifies seller motivation and property details", status: "Lead scored" },
-                { time: "2:30", event: "Appointment scheduled to your calendar", status: "Confirmed" },
-                { time: "2:35", event: "Follow-up sequence activated", status: "Running" },
-                { time: "3:00", event: "Deal card created in pipeline", status: "Organized" },
-              ].map((row, i) => (
+                { time: "0:00",  event: "Seller calls your number",                              status: "Answered instantly", delay: 0 },
+                { time: "0:45",  event: "AI qualifies seller motivation and property details",   status: "Lead scored",        delay: 150 },
+                { time: "2:30",  event: "Appointment scheduled to your calendar",                status: "Confirmed",          delay: 300 },
+                { time: "2:35",  event: "Follow-up sequence activated",                          status: "Running",            delay: 450 },
+                { time: "3:00",  event: "Deal card created in pipeline",                         status: "Organized",          delay: 600 },
+              ].map((row) => (
                 <div
                   key={row.time}
-                  className="flex items-start gap-3"
                   style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "12px",
+                    background: "#0f0f0f",
+                    border: "1px solid #1e1e1e",
+                    borderRadius: "6px",
+                    padding: "12px 14px",
                     opacity: 0,
-                    animation: "fadeInRow 0.4s ease forwards",
-                    animationDelay: `${i * 100}ms`,
-                    paddingBottom: "0.75rem",
-                    borderBottom: i < 4 ? "1px solid #1a1a1a" : "none",
+                    animation: "fadeUp 0.4s ease forwards",
+                    animationDelay: `${row.delay}ms`,
                   }}
                 >
                   <span
                     style={{
-                      fontSize: "0.65rem",
-                      color: "var(--color-text-muted)",
-                      minWidth: "2.5rem",
-                      paddingTop: "1px",
+                      fontSize: "11px",
+                      color: "#555",
+                      minWidth: "32px",
+                      flexShrink: 0,
                       fontVariantNumeric: "tabular-nums",
                     }}
                   >
@@ -167,8 +179,8 @@ export default function Home() {
                   </span>
                   <span
                     style={{
-                      fontSize: "0.75rem",
-                      color: "var(--color-text-secondary)",
+                      fontSize: "13px",
+                      color: "#e0e0e0",
                       flex: 1,
                       lineHeight: "1.4",
                     }}
@@ -177,15 +189,16 @@ export default function Home() {
                   </span>
                   <span
                     style={{
-                      fontSize: "0.6rem",
-                      letterSpacing: "0.05em",
+                      fontSize: "10px",
+                      letterSpacing: "0.08em",
                       color: "#c8f135",
-                      background: "rgba(200, 241, 53, 0.08)",
-                      border: "1px solid rgba(200, 241, 53, 0.2)",
-                      borderRadius: "2px",
-                      padding: "2px 6px",
+                      background: "#1a2a00",
+                      border: "1px solid #c8f135",
+                      borderRadius: "4px",
+                      padding: "3px 8px",
                       whiteSpace: "nowrap",
                       textTransform: "uppercase",
+                      flexShrink: 0,
                     }}
                   >
                     {row.status}
@@ -197,20 +210,30 @@ export default function Home() {
             {/* Card footer */}
             <div
               style={{
-                marginTop: "1rem",
-                paddingTop: "1rem",
-                borderTop: "1px solid #222222",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginTop: "8px",
+                paddingTop: "12px",
+                borderTop: "1px solid #1e1e1e",
               }}
             >
-              <span
-                style={{
-                  fontSize: "0.65rem",
-                  color: "var(--color-text-muted)",
-                  letterSpacing: "0.05em",
-                }}
-              >
+              <span style={{ fontSize: "11px", color: "#555", letterSpacing: "0.05em" }}>
                 Response time: &lt;90 seconds
               </span>
+              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                <span
+                  style={{
+                    display: "inline-block",
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "50%",
+                    background: "#c8f135",
+                    animation: "pulse 1.5s ease-in-out infinite",
+                  }}
+                />
+                <span style={{ fontSize: "11px", color: "#c8f135" }}>System active</span>
+              </div>
             </div>
           </div>
         </div>
