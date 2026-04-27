@@ -3,9 +3,9 @@ import Section from "@/components/ui/Section";
 import Button from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Motivated Seller Visibility Audit",
+  title: "Motivated Seller Visibility Audit | RealDealCrew",
   description:
-    "Most investor websites are invisible in local search and the investors running them have no idea. See exactly where you stand in your market and what it's costing you.",
+    "Find out why motivated sellers can't find you online. RealDealCrew's Motivated Seller Visibility Audit shows real estate investors exactly where they stand in local search and what to do about it.",
 };
 
 const auditCovers = [
